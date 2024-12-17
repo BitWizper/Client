@@ -140,6 +140,84 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Función para editar cliente
+    async function editarCliente(id) {
+        try {
+            // Obtener los datos actuales del cliente
+            const response = await fetch(`${apiUrl}/clientes/${id}`);
+            if (!response.ok) throw new Error(`Error al obtener cliente: ${response.status}`);
+            const cliente = await response.json();
+
+            // Crear formulario emergente para editar
+            const formHtml = `
+                <form id="editar-form" style="display: flex; flex-direction: column; gap: 10px;">
+                    <label>Nombre: <input type="text" id="nombre" value="${cliente.nombre || ''}" /></label>
+                    <label>Apellido: <input type="text" id="apellido" value="${cliente.apellido || ''}" /></label>
+                    <label>Email: <input type="email" id="email" value="${cliente.email || ''}" /></label>
+                    <label>Teléfono: <input type="text" id="telefono" value="${cliente.telefono || ''}" /></label>
+                    <label>Dirección: <input type="text" id="direccion" value="${cliente.direccion || ''}" /></label>
+                    <label>Comida Favorita: <input type="text" id="comida" value="${cliente.comida_favorita || ''}" /></label>
+                    <label>Descuento Navideño: <input type="text" id="descuento" value="${cliente.descuento_navideno || ''}" /></label>
+                    <button type="submit">Guardar Cambios</button>
+                </form>
+            `;
+
+            const modal = document.createElement('div');
+            modal.id = 'editar-modal';
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;
+            `;
+            modal.innerHTML = `
+                <div style="background: white; padding: 20px; border-radius: 5px; width: 300px;">
+                    <h3>Editar Cliente</h3>
+                    ${formHtml}
+                    <button id="cerrar-modal" style="margin-top: 10px;">Cancelar</button>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            // Evento para cerrar el modal
+            document.getElementById('cerrar-modal').addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+
+            // Evento para guardar cambios
+            document.getElementById('editar-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const datosActualizados = {
+                    nombre: document.getElementById('nombre').value,
+                    apellido: document.getElementById('apellido').value,
+                    email: document.getElementById('email').value,
+                    telefono: document.getElementById('telefono').value,
+                    direccion: document.getElementById('direccion').value,
+                    comida_favorita: document.getElementById('comida').value,
+                    descuento_navideno: document.getElementById('descuento').value
+                };
+
+                try {
+                    const updateResponse = await fetch(`${apiUrl}/actclientes/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(datosActualizados)
+                    });
+
+                    if (!updateResponse.ok) throw new Error(`Error al actualizar cliente: ${updateResponse.status}`);
+                    alert('Cliente actualizado exitosamente');
+                    document.body.removeChild(modal);
+                    obtenerClientes(); // Recargar lista de clientes
+                } catch (error) {
+                    console.error("Error al actualizar cliente:", error);
+                    alert('Error al actualizar cliente.');
+                }
+            });
+        } catch (error) {
+            console.error("Error al editar cliente:", error);
+        }
+    }
+
     // Inicialización
     obtenerClientes();
 });
