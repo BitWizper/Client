@@ -91,33 +91,26 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Función para buscar cliente por ID, comida favorita o nombre
-    async function buscarCliente() {
-        const id = buscarIdInput.value.trim();
-        const filtro = id.toLowerCase();
-
-        if (!id) {
-            alert("Por favor, ingresa un valor para buscar.");
-            return;
-        }
-
+    // Función para buscar cliente por ID
+    async function obtenerClientePorId(id) {
         try {
-            const filtrados = clientes.filter(cliente =>
-                cliente.id_cliente?.toString() === id ||
-                cliente.nombre?.toLowerCase().includes(filtro) ||
-                cliente.comida_favorita?.toLowerCase().includes(filtro)
-            );
+            const response = await fetch(`${apiUrl}/clientes/${id}`);
+            if (!response.ok) throw new Error(`Cliente no encontrado: ${response.status}`);
+            const cliente = await response.json();
 
-            if (filtrados.length === 0) throw new Error("No se encontraron coincidencias.");
+            // Mostrar solo el cliente encontrado
+            mostrarClientes([cliente]);
 
-            mostrarClientes(filtrados);
-            pageInfo.textContent = `Mostrando resultados para: "${id}"`;
+            // Actualizar la información de la página (fuera de la paginación)
+            pageInfo.textContent = `Mostrando resultado para ID: ${id}`;
             prevPageBtn.disabled = true;
             nextPageBtn.disabled = true;
         } catch (error) {
             console.error("Error al buscar cliente:", error);
             tablaClientes.innerHTML = `<tr><td colspan="9">Error: ${error.message}</td></tr>`;
-            pageInfo.textContent = `Error: No se encontraron resultados para "${id}"`;
+            pageInfo.textContent = `Error: Cliente con ID ${id} no encontrado.`;
+            prevPageBtn.disabled = true;
+            nextPageBtn.disabled = true;
         }
     }
 
