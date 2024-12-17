@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrar Nuevo Cliente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/cliente.css">
+</head>
+<body>
+  <div class="main-content">
+    <header>
+      <h1>Registrar Nuevo Cliente</h1>
+    </header>
+    <form id="nuevo-cliente-form">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+      
+      <label for="apellido">Apellido:</label>
+      <input type="text" id="apellido" name="apellido" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      
+      <label for="telefono">Teléfono:</label>
+      <input type="text" id="telefono" name="telefono" required>
+      
+      <label for="direccion">Dirección:</label>
+      <input type="text" id="direccion" name="direccion" required>
+      
+      <label for="comida-favorita">Comida Favorita:</label>
+      <input type="text" id="comida-favorita" name="comida_favorita" required>
+      
+      <label for="descuento-navideno">Descuento Navideño (%):</label>
+      <input type="number" id="descuento-navideno" name="descuento_navideno" min="0" max="100" required>
+      
+      <button type="submit" class="btn">Registrar Cliente</button>
+      <button type="button" class="btn" onclick="location.href='clientes.html'">Cancelar</button>
+    </form>
+  </div>
+  <script src="../js/nuevocliente.js"></script>
+</body>
+</html>

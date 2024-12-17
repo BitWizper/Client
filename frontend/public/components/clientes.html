@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Clientes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/cliente.css">
+  
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <h2>Gestión de Clientes</h2>
+    </div>
+    <ul>
+      <li><a href="../index.html">Perfil</a></li>
+      <li><a href="clientes.html" class="active">Clientes</a></li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <header>
+      <input type="text" id="buscar-id" placeholder="Buscar por ID...">
+      <button id="buscar-cliente-btn" class="btn">Buscar</button>
+      <div class="user-info">
+        <span>Admin</span>
+        <img src="https://via.placeholder.com/40" alt="Usuario">
+      </div>
+    </header>
+    <div class="content">
+      <div class="header">
+        <h1>Clientes</h1>
+        <button class="btn" onclick="location.href='nuevocliente.html'">Añadir Cliente</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Comida Favorita</th>
+            <th>Descuento Navideño</th>
+            <th>Operaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Datos dinámicos serán cargados aquí -->
+        </tbody>
+      </table>
+      <div id="pagination">
+        <button id="prev-page">Anterior</button>
+        <span id="page-info"></span>
+        <button id="next-page">Siguiente</button>
+      </div>
+    </div>
+  </div>
+  <script src="../js/clientes.js"></script>
+</body>
+</html>
