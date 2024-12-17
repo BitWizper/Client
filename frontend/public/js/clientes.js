@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentPage = 1;
     const itemsPerPage = 10;
 
-    const apiUrl = 'http://localhost:3000/api/cliente'; // Base URL para las solicitudes
+    const apiUrl = 'https://client-9dq3.onrender.com/api/cliente'; // Base URL para las solicitudes
 
     // Función para obtener clientes
     async function obtenerClientes() {
